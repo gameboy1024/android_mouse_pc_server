@@ -5,6 +5,11 @@ import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Robot;
 
+/**
+ * Test if the Robot works!
+ * @author Botu Sun
+ *
+ */
 public class MouseControlTest {
 
 	/**

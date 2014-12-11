@@ -2,12 +2,13 @@ package com.sunbotu.androidmouse.pc;
 
 import java.awt.AWTException;
 import java.awt.Dimension;
-import java.awt.Point;
 import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.event.InputEvent;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import com.sunbotu.androidmouse.pc.utils.Point;
 
 public class MouseControl {
   private Robot robot;
