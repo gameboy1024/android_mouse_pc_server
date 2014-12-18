@@ -1,4 +1,4 @@
-package com.sunbotu.androidmouse.pc;
+package com.sunbotu.androidmouse.pc.controller;
 
 public class MessageDecoder {
   final static String MOUSE_LEFT_BTN_DOWN = "LD";

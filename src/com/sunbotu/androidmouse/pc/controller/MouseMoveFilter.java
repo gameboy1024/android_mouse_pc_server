@@ -1,4 +1,4 @@
-package com.sunbotu.androidmouse.pc;
+package com.sunbotu.androidmouse.pc.controller;
 
 import java.util.LinkedList;
 
@@ -24,7 +24,7 @@ public class MouseMoveFilter {
 
   public Point filter(int x, int y) {
     previousPoints.push(new Point(x, y));
-    if (previousPoints.size() >= SMOOTH_N_TH) {
+    while (previousPoints.size() >= SMOOTH_N_TH) {
       previousPoints.removeLast();
     }
 

@@ -1,4 +1,4 @@
-package com.sunbotu.androidmouse.pc;
+package com.sunbotu.androidmouse.pc.controller;
 
 import java.awt.AWTException;
 import java.awt.Dimension;

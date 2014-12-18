@@ -1,4 +1,4 @@
-package com.sunbotu.androidmouse.pc;
+package com.sunbotu.androidmouse.pc.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,7 +14,9 @@ public class SocketServer {
   private static BufferedReader bufferedReader;
   private static String message;
 
-  public static void main(String[] args) {
+  public SocketServer() {}
+  
+  public void start() {
     MessageDecoder decoder = new MessageDecoder();
 
     try {
@@ -27,13 +29,13 @@ public class SocketServer {
 
     while (true) {
       try {
-
-        clientSocket = serverSocket.accept(); // accept the client
-        System.out.println("Client connected!");
-        // connection
+        // Accept the client
+        clientSocket = serverSocket.accept(); 
+        System.out.println("New client connected!");
+        // Connection
         inputStreamReader = new InputStreamReader(clientSocket.getInputStream());
-        bufferedReader = new BufferedReader(inputStreamReader); // get
-        // client
+        bufferedReader = new BufferedReader(inputStreamReader);
+        // Client
         while (true) {
           message = bufferedReader.readLine();
           if (message == null) {
@@ -42,7 +44,6 @@ public class SocketServer {
             decoder.decode(message);
           }
         }
-
         inputStreamReader.close();
         clientSocket.close();
       } catch (IOException ex) {
