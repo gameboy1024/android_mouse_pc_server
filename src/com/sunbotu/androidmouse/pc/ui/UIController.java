@@ -1,31 +1,44 @@
 package com.sunbotu.androidmouse.pc.ui;
 
-import java.lang.Thread.State;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 
 import com.sunbotu.androidmouse.pc.controller.SocketServer;
 
 public class UIController {
-  private enum State {IDLE, STARTED}
+  private enum State {
+    IDLE, STARTED
+  }
+
   private State state;
   private SocketServer server;
-  
-  public UIController(SocketServer server) {
+  private JButton startButton;
+  private JLabel connectionInfoLabel;
+
+  public UIController(final SocketServer server, final JButton startButton, final JLabel connectionInfo) {
     this.server = server;
     state = State.IDLE;
+    this.startButton = startButton;
+    connectionInfoLabel = connectionInfo;
   }
-  
+
   public void processEvent(String actionCommand) {
     switch (actionCommand) {
     case "start":
-      new Thread(new Runnable() {
-        
-        @Override
-        public void run() {
-          server.start();
-          
-        }
-      }).start();
-      state = State.STARTED;
+      if (state == State.IDLE) {
+        server.start();
+        state = State.STARTED;
+        startButton.setText("Stop server");
+        connectionInfoLabel.setText("Connected!");
+      } else {
+        server.stop();
+        state = State.IDLE;
+        startButton.setText("Start server");
+        connectionInfoLabel.setText("Not connected!");
+      }
+      break;
+    default:
+      System.err.println("Unknown action command: " + actionCommand);
     }
   }
 }

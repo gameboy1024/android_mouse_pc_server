@@ -19,9 +19,9 @@ public class MessageDecoder {
     String[] pairs = message.split("_");
     switch (pairs[0]) {
       case LOCATION:
-        double tilt = Double.parseDouble(pairs[1]);
-        double rotation = Double.parseDouble(pairs[2]);
-        controller.moveRelative(tilt, rotation);
+        double x = Double.parseDouble(pairs[1]);
+        double y = Double.parseDouble(pairs[2]);
+        controller.moveRelative(x, y);
         break;
       case MOUSE_LEFT_BTN_DOWN:
         controller.clickLeftDown();
@@ -39,6 +39,5 @@ public class MessageDecoder {
         System.err.println("Unknown message: " + message);
         break;
     }
-    
   }
 }

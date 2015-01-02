@@ -7,6 +7,7 @@ public class Launcher {
 
   public static void main(String[] args) {
     SocketServer server = new SocketServer();
+    @SuppressWarnings("unused")
     MainWindow mainWindow = new MainWindow(server);
   }  
 }

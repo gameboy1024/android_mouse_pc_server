@@ -13,10 +13,25 @@ public class SocketServer {
   private static InputStreamReader inputStreamReader;
   private static BufferedReader bufferedReader;
   private static String message;
+  private static boolean running;
 
   public SocketServer() {}
   
   public void start() {
+    running = true;
+    new Thread(new Runnable() {
+      @Override
+      public void run() {
+        startInternal();
+      }
+    }).start();
+  }
+  
+  public void stop() {
+    running = false;
+  }
+  
+  private void startInternal() {
     MessageDecoder decoder = new MessageDecoder();
 
     try {
@@ -27,7 +42,7 @@ public class SocketServer {
     }
     System.out.println("Server started. Listening to the port 4445");
 
-    while (true) {
+    while (running) {
       try {
         // Accept the client
         clientSocket = serverSocket.accept(); 
@@ -36,7 +51,7 @@ public class SocketServer {
         inputStreamReader = new InputStreamReader(clientSocket.getInputStream());
         bufferedReader = new BufferedReader(inputStreamReader);
         // Client
-        while (true) {
+        while (running) {
           message = bufferedReader.readLine();
           if (message == null) {
             break;
