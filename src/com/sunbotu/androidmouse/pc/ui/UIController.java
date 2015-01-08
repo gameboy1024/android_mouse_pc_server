@@ -17,6 +17,7 @@ public class UIController {
 
   public UIController(final SocketServer server, final JButton startButton, final JLabel connectionInfo) {
     this.server = server;
+    this.server.setActionListener(new ActionListener(this));
     state = State.IDLE;
     this.startButton = startButton;
     connectionInfoLabel = connectionInfo;
@@ -29,13 +30,17 @@ public class UIController {
         server.start();
         state = State.STARTED;
         startButton.setText("Stop server");
-        connectionInfoLabel.setText("Connected!");
       } else {
         server.stop();
         state = State.IDLE;
         startButton.setText("Start server");
-        connectionInfoLabel.setText("Not connected!");
       }
+      break;
+    case "connected":
+      connectionInfoLabel.setText("Connected!");
+      break;
+    case "disconnected":
+      connectionInfoLabel.setText("Disconnected!");
       break;
     default:
       System.err.println("Unknown action command: " + actionCommand);

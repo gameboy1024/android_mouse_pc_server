@@ -22,7 +22,7 @@ public class MainWindow {
     mainFrame.setResizable(false);
 
     JButton startButton = new JButton("Start server");
-    JLabel connectionInfo = new JLabel("Not connected!");
+    JLabel connectionInfo = new JLabel("Disconnected!");
     // Controller
     controller = new UIController(server, startButton, connectionInfo);
 
@@ -30,7 +30,7 @@ public class MainWindow {
         + IpGetter.getWlanIpAddr());
     mainFrame.add(ipLabel, BorderLayout.NORTH);
 
-    ButtonListener buttonListener = new ButtonListener(controller);
+    ActionListener buttonListener = new ActionListener(controller);
 
     
     startButton.setPreferredSize(new Dimension(100, 20));

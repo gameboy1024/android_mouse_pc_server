@@ -38,13 +38,18 @@ public class MouseControl {
     // Default sensibility is 50.
     this(50);
   }
+  
+  public double sensibilityFunction(double input) {
+    return input * (Math.pow(Math.abs(input), 1.001) * 0.0001 + 1) * sensitivity;
+  }
 
   public void moveRelative(double x, double y) {
     if (state == State.CLICKING) {
       return;
     }
-    Point point = filter.filter((int) (startPoint.x + x * sensitivity),
-        (int) (startPoint.y + y * sensitivity));
+    Point point = filter.filter((int) (startPoint.x + sensibilityFunction(x)),
+        (int) (startPoint.y + sensibilityFunction(y)));
+//    System.out.println(point.x + " " + point.y);
     robot.mouseMove(point.x, point.y);
   }
 

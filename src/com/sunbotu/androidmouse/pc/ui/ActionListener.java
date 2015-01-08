@@ -1,12 +1,11 @@
 package com.sunbotu.androidmouse.pc.ui;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class ButtonListener implements ActionListener {
+public class ActionListener implements java.awt.event.ActionListener {
   private UIController controller;
   
-  public ButtonListener(UIController controller) {
+  public ActionListener(UIController controller) {
     this.controller = controller;
   }
   

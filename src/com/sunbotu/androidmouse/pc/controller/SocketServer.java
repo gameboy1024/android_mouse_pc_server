@@ -1,22 +1,27 @@
 package com.sunbotu.androidmouse.pc.controller;
 
+import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import com.sunbotu.androidmouse.pc.ui.ActionListener;
+
 public class SocketServer {
 
-  private static ServerSocket serverSocket;
-  private static Socket clientSocket;
-  private static InputStreamReader inputStreamReader;
-  private static BufferedReader bufferedReader;
-  private static String message;
-  private static boolean running;
+  private ServerSocket serverSocket;
+  private Socket clientSocket;
+  private InputStreamReader inputStreamReader;
+  private BufferedReader bufferedReader;
+  private String message;
+  private boolean running;
+  private ActionListener actionListener;
 
-  public SocketServer() {}
-  
+  public SocketServer() {
+  }
+
   public void start() {
     running = true;
     new Thread(new Runnable() {
@@ -26,11 +31,11 @@ public class SocketServer {
       }
     }).start();
   }
-  
+
   public void stop() {
     running = false;
   }
-  
+
   private void startInternal() {
     MessageDecoder decoder = new MessageDecoder();
 
@@ -45,8 +50,9 @@ public class SocketServer {
     while (running) {
       try {
         // Accept the client
-        clientSocket = serverSocket.accept(); 
+        clientSocket = serverSocket.accept();
         System.out.println("New client connected!");
+        actionListener.actionPerformed(new ActionEvent(this, 0, "connected"));
         // Connection
         inputStreamReader = new InputStreamReader(clientSocket.getInputStream());
         bufferedReader = new BufferedReader(inputStreamReader);
@@ -61,9 +67,15 @@ public class SocketServer {
         }
         inputStreamReader.close();
         clientSocket.close();
+        actionListener
+            .actionPerformed(new ActionEvent(this, 0, "disconnected"));
       } catch (IOException ex) {
         System.out.println("Problem in message reading");
       }
     }
+  }
+
+  public void setActionListener(ActionListener actionListener) {
+    this.actionListener = actionListener;
   }
 }

@@ -12,10 +12,11 @@ public class MessageDecoder {
   private MouseControl controller;
   
   public MessageDecoder() {
-    controller = new MouseControl();
+    controller = new MouseControl();  
   }
   
   public void decode(String message) {
+//    System.out.println(message);
     String[] pairs = message.split("_");
     switch (pairs[0]) {
       case LOCATION:
