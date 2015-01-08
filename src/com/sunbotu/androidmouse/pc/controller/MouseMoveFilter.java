@@ -24,7 +24,7 @@ public class MouseMoveFilter {
 
   public Point filter(int x, int y) {
     previousPoints.push(new Point(x, y));
-    while (previousPoints.size() >= SMOOTH_N_TH) {
+    while (previousPoints.size() > SMOOTH_N_TH) {
       previousPoints.removeLast();
     }
 
